@@ -1,3 +1,7 @@
+import json
+from pathlib import Path
+ruta_posts = Path(__file__).resolve().parent.parent / "posts.json"
+
 perfil_autor = {
     "nombre": "Ana López",
     "bio": "Desarrolladora web y creadora de contenido sobre programación.",
@@ -43,3 +47,24 @@ posts = [
         # sin "contenido" a propósito
     }
 ]
+
+def cargar_posts():
+    try:
+        with open(ruta_posts, "r", encoding="utf-8") as archivo:
+            datos = json.load(archivo)
+        if not isinstance(datos,list) or not all(isinstance(post, dict)for post in datos):
+            print("formato invalido")
+            return []
+        return datos
+    except FileNotFoundError:
+        print("archivo  no encontrado")
+        return []
+    except json.JSONDecodeError:
+        print("Error al decodificar el archivo JSON.")
+        return []
+def guardar_posts(posts):
+    with open(ruta_posts, "w", encoding= "utf-8")as archivo:
+        json.dump(posts, archivo, indent=4, ensure_ascii=False)
+
+posts= cargar_posts()
+
