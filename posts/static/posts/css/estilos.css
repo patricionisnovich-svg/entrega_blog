@@ -16,7 +16,7 @@ body {
 }
 
 .site-nav a {
-    color: #080707;
+    color: lab(95.94% 2.01 0.7);
     text-decoration: none;
     margin-right: 15px;
 }
