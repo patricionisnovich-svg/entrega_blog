@@ -6,6 +6,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ("titulo", "contenido", "autor")
     list_filter = ("estado", "fecha_creacion")
     list_editable = ("estado",)
+    prepopulated_fields = {"slug": ("titulo",)}
 
 admin.site.register(Post, PostAdmin)
 

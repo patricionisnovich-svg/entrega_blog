@@ -1,0 +1,20 @@
+{% extends 'posts/base.html' %}
+{/* posts/templates/posts/post_form.html */}
+
+{% block content %}
+<h1>{{ titulo_pagina }}</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">{{ texto_boton }}</button>
+</form>
+
+{% if post %}
+    <a href="{% url 'detalle_post' post.slug %}">Cancelar</a>
+{% else %}
+    <a href="{% url 'lista_posts' %}">Cancelar</a>
+{% endif %}
+{% endblock %}

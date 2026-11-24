@@ -1,22 +1,30 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <title>Mi Blog</title>
-</head>
-<body>
-    <h1>Últimos posts</h1>
+{% extends 'posts/base.html' %}
+{# posts/templates/posts/lista_posts.html #}
+
+{% block title %}Listado de posts{% endblock %}
+
+{% block content %}
+    <h1>Listado de posts</h1>
+
+    <a href="{% url 'crear_post' %}">Crear nuevo post</a>
 
     {% for post in posts %}
         <article>
-            <h2>{{ post.titulo }}</h2>
-            <p>Escrito por {{ post.autor }}</p>
-            <p>{{post.contenido}}</p>
-            <p>{{ post.fecha_creacion }}</p>
-            <p>{{post.estado}}</p>
+             {% if post.imagen %}
+            <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" width="250" />
+             {% endif %}
+            <h2>
+                <a href="{% url 'detalle_post' post.slug %}">
+                    {{ post.titulo }}
+                </a>
+            </h2>
+
+            <p>{{ post.contenido|truncatewords:30 }}</p>
+            <p>Autor: {{ post.autor }}</p>
+            <p>Estado: {{ post.estado }}</p>
+            <p>Fecha: {{ post.fecha_creacion }}</p>
         </article>
     {% empty %}
-        <p>Todavía no hay posts publicados.</p>
+        <p>No hay posts cargados.</p>
     {% endfor %}
-</body>
-</html>
+{% endblock %}
